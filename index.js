@@ -1,7 +1,3 @@
 "use strict";
-var Index = (function () {
-    function Index() {
-    }
-    return Index;
-}());
-exports.Index = Index;
+const logger = require("./logger");
+exports.logger = logger;

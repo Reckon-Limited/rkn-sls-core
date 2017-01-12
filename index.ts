@@ -1,4 +1,5 @@
-import * as _ from 'lodash';
 
-export class Index {
-}
+import * as logger from './logger'
+
+
+export { logger };

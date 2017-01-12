@@ -1,2 +1,2 @@
-export declare class Index {
-}
+import * as logger from './logger';
+export { logger };
