@@ -6,7 +6,7 @@ function error(s) {
         rest[_i - 1] = arguments[_i];
     }
     var args = rest.map(function (a) { return inspect(a); });
-    // let args = Array.from(arguments, (a: any) => { return inspect(a) });
+    args.unshift(s);
     console.error.apply(null, args);
 }
 exports.error = error;
@@ -16,6 +16,7 @@ function info(s) {
         rest[_i - 1] = arguments[_i];
     }
     var args = rest.map(function (a) { return inspect(a); });
+    args.unshift(s);
     console.info.apply(null, args);
 }
 exports.info = info;
@@ -26,6 +27,7 @@ function debug(s) {
     }
     if (process.env.DEBUG == 'true') {
         var args = rest.map(function (a) { return inspect(a); });
+        args.unshift(s);
         console.log.apply(null, args);
     }
 }

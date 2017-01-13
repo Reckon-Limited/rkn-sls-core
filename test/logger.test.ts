@@ -40,9 +40,9 @@ const original = console.log;
 
       expect(spy.firstCall.args.indexOf(expected) !== -1).to.be.true;
 
-      logger.debug('hello');
-      // console.info('Res:',spy.secondCall.args);
-      // expect(spy.secondCall.args.indexOf('hello') !== -1).to.be.true;
+      logger.debug('hello',1);
+
+      expect(spy.secondCall.args.indexOf('hello') !== -1).to.be.true;
   }
 
   @test disableDebug() {

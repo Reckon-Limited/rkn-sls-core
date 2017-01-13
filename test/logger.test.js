@@ -37,9 +37,8 @@ var LoggerTest = (function () {
         console.log = spy;
         index_1.logger.debug('%d hello', 1, 2, obj);
         chai_1.expect(spy.firstCall.args.indexOf(expected) !== -1).to.be.true;
-        index_1.logger.debug('hello');
-        // console.info('Res:',spy.secondCall.args);
-        // expect(spy.secondCall.args.indexOf('hello') !== -1).to.be.true;
+        index_1.logger.debug('hello', 1);
+        chai_1.expect(spy.secondCall.args.indexOf('hello') !== -1).to.be.true;
     };
     LoggerTest.prototype.disableDebug = function () {
         process.env.DEBUG = false;
