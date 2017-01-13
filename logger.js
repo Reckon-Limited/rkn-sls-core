@@ -1,18 +1,31 @@
 "use strict";
-const util = require("util");
-function error(s, ..._) {
-    let args = Array.from(arguments, (a) => { return inspect(a); });
+var util = require("util");
+function error(s) {
+    var rest = [];
+    for (var _i = 1; _i < arguments.length; _i++) {
+        rest[_i - 1] = arguments[_i];
+    }
+    var args = rest.map(function (a) { return inspect(a); });
+    // let args = Array.from(arguments, (a: any) => { return inspect(a) });
     console.error.apply(null, args);
 }
 exports.error = error;
-function info(s, ..._) {
-    let args = Array.from(arguments, (a) => { return inspect(a); });
+function info(s) {
+    var rest = [];
+    for (var _i = 1; _i < arguments.length; _i++) {
+        rest[_i - 1] = arguments[_i];
+    }
+    var args = rest.map(function (a) { return inspect(a); });
     console.info.apply(null, args);
 }
 exports.info = info;
-function debug(s, ..._) {
+function debug(s) {
+    var rest = [];
+    for (var _i = 1; _i < arguments.length; _i++) {
+        rest[_i - 1] = arguments[_i];
+    }
     if (process.env.DEBUG == 'true') {
-        let args = Array.from(arguments, (a) => { return inspect(a); });
+        var args = rest.map(function (a) { return inspect(a); });
         console.log.apply(null, args);
     }
 }

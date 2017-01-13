@@ -1,3 +1,3 @@
 "use strict";
-const logger = require("./logger");
+var logger = require("./logger");
 exports.logger = logger;
