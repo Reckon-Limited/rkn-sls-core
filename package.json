@@ -3,23 +3,23 @@
   "version": "0.0.5",
   "main": "index.js",
   "license": "MIT",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Reckon-Limited/rkn-sls-core"
-  },
-  "dependencies": {},
   "devDependencies": {
-    "@types/chai": "^3.4.34",
-    "@types/node": "^7.0.0",
-    "@types/sinon": "^1.16.34",
+    "@types/chai": "^3.5.2",
+    "@types/mocha": "^2.2.41",
+    "@types/node": "^7.0.18",
+    "@types/pg": "^6.1.41",
+    "@types/request-promise-native": "^1.0.5",
     "chai": "^3.5.0",
-    "mocha": "^3.2.0",
-    "mocha-typescript": "^1.0.15",
-    "sinon": "^1.17.7",
-    "typescript": "^2.1.4"
+    "mocha": "^3.3.0",
+    "nyc": "^10.3.2",
+    "remap-istanbul": "^0.9.5",
+    "testdouble": "^3.2.1"
   },
   "scripts": {
-    "test": "mocha",
-    "dev-test-watch": "mocha-typescript-watch"
+    "test": "nyc mocha --recursive --",
+    "integration": "mocha --recursive integration/",
+    "seed": "sequelize db:migrate && sequelize db:seed:undo:all && sequelize db:seed:all"
+  },
+  "dependencies": {
   }
 }
