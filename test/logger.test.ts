@@ -1,59 +1,152 @@
-/// <reference path="describe.d.ts" />
-
-import { suite, test, slow, timeout, skip, only } from 'mocha-typescript';
 import { expect } from 'chai';
-
-import * as sinon from 'sinon';
 
 import { logger } from '../index'
 
+import * as td from 'testdouble';
+
 const original = console.log;
 
-@suite class LoggerTest {
+describe('Logger', () => {
 
-  before() {
+
+  after(() => {
     console.log = original;
-    process.env.DEBUG = true
-  }
+  });
 
-  after() {
-    console.log = original;
-    delete process.env.DEBUG;
-  }
+  describe('info', () => {
 
-  @test debug() {
-      let obj = {
-        one: {
-          two: {
-            three: {
-              blah: 'vtha'
-            }
-          }
-        }
-      };
-      let expected = '{ one: { two: { three: { blah: \'vtha\' } } } }';
-      let spy = sinon.spy();
+    it('adds [info]', () => {
+      const log = td.function();
 
-      console.log = spy;
+      console.log = log;
 
-      logger.debug('%d hello', 1, 2, obj);
+      logger.info('Hello');
+      td.verify(log('[info] Hello'));
+    });
 
-      expect(spy.firstCall.args.indexOf(expected) !== -1).to.be.true;
 
-      logger.debug('hello',1);
+    it('preserves console.log formatting', () => {
+      const log = td.function();
 
-      expect(spy.secondCall.args.indexOf('hello') !== -1).to.be.true;
-  }
+      console.log = log;
 
-  @test disableDebug() {
+      logger.info('%d hello', 1, 2, {blah: 'vtha'});
 
-    process.env.DEBUG = false;
+      const args = td.matchers.contains('[info]')
 
-    let spy = sinon.spy();
-    console.log = spy;
+      td.verify(log("[info] %d hello"), {ignoreExtraArgs: true});
+    });
 
-    logger.debug('test',1,2,3);
-    expect(spy.called).to.be.false;
 
-  }
-}
+  });
+
+  describe('error', () => {
+
+    it('adds [error]', () => {
+      const log = td.function();
+
+      console.log = log;
+
+      logger.error('Hello');
+      td.verify(log('[error] Hello'));
+    });
+
+  });
+
+  describe('debug', () => {
+
+    it('not called', () => {
+      const log = td.function();
+
+      console.log = log;
+
+      logger.debug('Hello');
+      td.verify(log(), {times: 0, ignoreExtraArgs: true});
+    });
+
+  });
+
+  describe('with debug', () => {
+
+    before( () => {
+      process.env.DEBUG = true
+    })
+
+    after(() => {
+      console.log = original;
+      delete process.env.DEBUG;
+    });
+
+
+    it('adds [debug]', () => {
+      const log = td.function();
+
+      console.log = log;
+
+      logger.debug('Blah Vtha');
+      td.verify(log('[debug] Blah Vtha'));
+    });
+
+  });
+
+
+});
+
+
+// describe('Responder', () => {
+//
+//   it('wraps status code', async () => {
+//     let response = Response.send(200, 'ok')
+//     expect(response.statusCode).to.eq(200)
+//   });
+//
+// });
+
+// @suite class LoggerTest {
+//
+//   before() {
+//     console.log = original;
+//     process.env.DEBUG = true
+//   }
+//
+//   after() {
+//     console.log = original;
+//     delete process.env.DEBUG;
+//   }
+//
+//   @test debug() {
+//       let obj = {
+//         one: {
+//           two: {
+//             three: {
+//               blah: 'vtha'
+//             }
+//           }
+//         }
+//       };
+//       let expected = '{ one: { two: { three: { blah: \'vtha\' } } } }';
+//       let spy = sinon.spy();
+//
+//       console.log = spy;
+//
+//       logger.debug('%d hello', 1, 2, obj);
+//
+//       expect(spy.firstCall.args.indexOf(expected) !== -1).to.be.true;
+//
+//       logger.debug('hello',1);
+//
+//       expect(spy.secondCall.args.indexOf('hello') !== -1).to.be.true;
+//   }
+//
+//   @test disableDebug() {
+//
+//     process.env.DEBUG = false;
+//
+//     let spy = sinon.spy();
+//     console.log = spy;
+//
+//     logger.debug('test',1,2,3);
+//     expect(spy.called).to.be.false;
+//
+//   }
+// }
