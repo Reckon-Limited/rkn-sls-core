@@ -1,6 +1,6 @@
 import * as logger from './logger';
 
-import * as Response from './response';
+import { Response } from './response';
 
 export { logger };
 
