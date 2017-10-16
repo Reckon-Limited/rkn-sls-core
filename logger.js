@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var util = require("util");
 function error(s) {
     var rest = [];
@@ -25,7 +26,7 @@ function debug(s) {
     for (var _i = 1; _i < arguments.length; _i++) {
         rest[_i - 1] = arguments[_i];
     }
-    if (process.env.DEBUG == 'true') {
+    if (process.env.DEBUG === 'true') {
         var args = rest.map(function (a) { return inspect(a); });
         args.unshift("[debug] " + s);
         console.log.apply(null, args);
@@ -33,6 +34,6 @@ function debug(s) {
 }
 exports.debug = debug;
 function inspect(a) {
-    return (typeof a == 'string') ? a : util.inspect(a, { depth: 99 });
+    return (typeof a === 'string') ? a : util.inspect(a, { depth: 99 });
 }
 exports.inspect = inspect;

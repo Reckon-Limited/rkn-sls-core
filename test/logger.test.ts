@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import { logger } from '../index'
+import { logger } from '../index';
 
 import * as td from 'testdouble';
 
@@ -16,7 +16,7 @@ describe('Logger', () => {
   describe('info', () => {
 
     it('adds [info]', () => {
-      const log = td.function();
+      const log: any = td.function();
 
       console.log = log;
 
@@ -26,7 +26,7 @@ describe('Logger', () => {
 
 
     it('preserves console.log formatting', () => {
-      const log = td.function();
+      const log: any = td.function();
 
       console.log = log;
 
@@ -43,7 +43,7 @@ describe('Logger', () => {
   describe('error', () => {
 
     it('adds [error]', () => {
-      const log = td.function();
+      const log: any = td.function();
 
       console.log = log;
 
@@ -56,7 +56,7 @@ describe('Logger', () => {
   describe('debug', () => {
 
     it('not called', () => {
-      const log = td.function();
+      const log: any = td.function();
 
       console.log = log;
 
@@ -69,8 +69,8 @@ describe('Logger', () => {
   describe('with debug', () => {
 
     before( () => {
-      process.env.DEBUG = true
-    })
+      process.env.DEBUG = true;
+    });
 
     after(() => {
       console.log = original;
@@ -79,7 +79,7 @@ describe('Logger', () => {
 
 
     it('adds [debug]', () => {
-      const log = td.function();
+      const log: any = td.function();
 
       console.log = log;
 
