@@ -13,13 +13,17 @@
     "mocha": "^3.3.0",
     "nyc": "^10.3.2",
     "remap-istanbul": "^0.9.5",
-    "testdouble": "^3.2.1"
+    "testdouble": "^3.2.1",
+    "tslint": "^5.6.0",
+    "tslint-config-airbnb": "^5.2.1",
+    "typescript": "^2.5.3"
   },
   "scripts": {
+    "build": "tsc --watch",
+    "lint": "tslint '**/*.ts?(x)'",
     "test": "nyc mocha --recursive --",
     "integration": "mocha --recursive integration/",
     "seed": "sequelize db:migrate && sequelize db:seed:undo:all && sequelize db:seed:all"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
